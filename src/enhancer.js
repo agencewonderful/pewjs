@@ -61,8 +61,6 @@ export class Enhancer {
                 }
             }
         }
-
         return elements;
     }
-
 }
