@@ -21,7 +21,7 @@ export class Enhancer {
     parse(registry) {
         let entries = registry.getAll();
         let keys = Object.keys(entries);
-        console.log(keys);
+
         this.slugs = keys.map((key) => {
             return {
                 slug: key,
