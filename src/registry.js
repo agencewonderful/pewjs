@@ -1,9 +1,8 @@
 export class RegistryItem { // only for structure
-    constructor() {
-        this.selector = ''; // string
-        this.classDef = null; // Object definition ;
-        this.excludeSelector = '';
-        this.options = {};
+    constructor(classDef, selector, options) {
+        this.classDef = classDef; // Object definition ;
+        this.selector = selector;
+        this.options = (options) ? options : { excludeSelector: '', partialDom : null }
     }
 }
 

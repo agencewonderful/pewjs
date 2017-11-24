@@ -1,14 +1,10 @@
 import { Enhancer } from "./src/enhancer";
-import  { Registry } from "./src/registry"
+import { Registry } from "./src/registry"
 
 export class Pew {
-    constructor() {
+    constructor(options) {
         this.registry = new Registry();
-        this.enhancer = new Enhancer();
-    }
-
-    setDom(dom) {
-        this.enhancer.setDom(dom);
+        this.enhancer = new Enhancer(options);
     }
 
     addRegistryEntry(slug, registryItem) {
