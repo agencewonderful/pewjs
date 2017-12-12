@@ -49,7 +49,7 @@ export class Enhancer {
             let key = slug.slug;
             result[key] = [];
             slug.domElements.forEach((domElement) => {
-                let enhanced = (slug.classDef) ? this.enhanceElement(domElement, slug.classDef) : console.warn('[PewJS] Enhancer did not found a classDef')
+                let enhanced = (slug.classDef) ? this.enhanceElement(domElement, slug.classDef) : console.warn('[PewJS] Enhancer did not found a classDef');
                 result[key].push(enhanced.dom);
             });
         });

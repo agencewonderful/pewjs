@@ -1,5 +1,5 @@
 import { Enhancer } from "./src/enhancer";
-import { Registry } from "./src/registry"
+import { Registry } from "./src/registry";
 
 export class Pew {
     constructor(options) {
