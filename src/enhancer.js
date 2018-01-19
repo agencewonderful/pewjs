@@ -10,6 +10,7 @@ export class Enhancer {
         });
     }
 
+    // Force option is used
     enhanceEntry(registryEntry, force) {
         if(this.__DEBUG) {
             registryEntry.__debug();

@@ -24,13 +24,14 @@ export class Pew {
      */
     addRegistryEntry(registryEntry) {
         this.registry.addEntry(registryEntry, this.__DEBUG);
-    }
-
-    getRegistryEntry(key) {
-        return this.registry.getEntry(key);
+        return this;
     }
     enhanceRegistryEntry(key) {
         let registryEntry = this.getRegistryEntry(key);
         this.enhancer.enhanceEntry(registryEntry, true);
+        return this;
+    }
+    getRegistryEntry(key) {
+        return this.registry.getEntry(key);
     }
 }
