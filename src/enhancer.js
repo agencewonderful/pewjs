@@ -1,3 +1,19 @@
+class RegistryItem {
+    constructor(key, classDef, HTMLCollection) {
+        this.key = key;
+        this.classDef = classDef;
+        this.HTMLCollection = HTMLCollection;
+    }
+    enhance() {
+        this.HTMLCollection.forEach((element) => {
+            this.enhanceElement(element);
+        });
+    }
+    enhanceElement(element) {
+        return new this.classDef(element);
+    }
+}
+
 export class Enhancer {
 
     /*
@@ -7,60 +23,39 @@ export class Enhancer {
         if(options && options.debug) {
             this.__DEBUG = options.debug;
         }
-        this.slugs = [];
+        this.keys = [];
     }
     enhance(registry) {
-        this.parse(registry);
-        this.enhanceSlugs();
+        console.log('ENHANCE', registry);
+        this.keys = this.extractEntries(registry);
+        this.enhanceRegistry();
     }
 
     /*
     * Parses dom to find elements to instanciate for each slug
     * */
-    parse(registry) {
+    extractEntries(registry) {
+        console.log('registry', registry);
         let entries = registry.getAll();
+        console.log('ENTRIES', entries);
         let keys = Object.keys(entries);
-
-        this.slugs = keys.map((key) => {
+        console.log('entries', entries);
+        return keys.map((key) => {
+            console.log('map', key);
             let registryEntry = entries[key];
-            let selector = (registryEntry.selector) ? registryEntry.selector : null;
-            let dom = (registryEntry.partialDom) ? registryEntry.partialDom : document.body;
-            let domElements = this.findElements(selector, dom);
-            if(this.__DEBUG) {
-                if(!selector) {
-                    console.warn('[PewJS] Enhancer did not found a selector for slug : "'+key+'"');
-                }
-                if(domElements.length <= 0) {
-                    console.warn('[PewJS] Parser did not found DOM elements matching the selector : "'+selector+'".');
-                }
-            }
-            return {
-                slug: key,
-                classDef: registryEntry.classDef,
-                domElements: domElements
-            };
+            let selector = (registryEntry.domSelector) ? registryEntry.domSelector : null;
+            let dom = (registryEntry.HTMLElement) ? registryEntry.HTMLElement : document.body;
+            let HTMLElements = this.findElements(selector, dom);
+
+            return new RegistryItem(key, registryEntry.classDef, HTMLElements);
         });
     }
 
-    enhanceSlugs() {
-        let result = {};
-
-        this.slugs.forEach((slug) => {
-            let key = slug.slug;
-            result[key] = [];
-            slug.domElements.forEach((domElement) => {
-                let enhanced = (slug.classDef) ? this.enhanceElement(domElement, slug.classDef) : console.warn('[PewJS] Enhancer did not found a classDef');
-                result[key].push(enhanced.dom);
-            });
+    enhanceRegistry() {
+        console.log(this.keys);
+        this.keys.forEach((registryItem) => {
+            registryItem.enhance();
         });
-
-        if(this.__DEBUG) {
-            console.info('[PewJS] Enhanced elements :', result);
-        }
-    }
-
-    enhanceElement(domElement, classDef) {
-        return new classDef(domElement);
     }
 
 

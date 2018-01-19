@@ -7,11 +7,16 @@ export class Pew {
         this.enhancer = new Enhancer(options);
     }
 
-    addRegistryEntry(slug, registryItem) {
-        this.registry.addEntry(slug, registryItem);
+    /**
+     *
+     * @param registryEntry RegistryEntry
+     */
+    addRegistryEntry(registryEntry) {
+        this.registry.addEntry(registryEntry);
     }
 
     enhanceRegistry() {
         this.enhancer.enhance(this.registry);
     }
 }
+
