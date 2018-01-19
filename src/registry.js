@@ -1,22 +1,22 @@
-export class RegistryItem { // only for structure
-    constructor(classDef, selector, options) {
-        this.classDef = classDef; // Object definition ;
-        this.selector = selector;
-        this.options = (options) ? options : { excludeSelector: '', partialDom : null };
-    }
-}
-
 export class Registry {
-    constructor() {
-        this.entries = {}; // collection of Slug keys => RegistryItem
+    constructor(debug) {
+        this.__DEBUG = debug;
+        this.entries = {}; // collection of Slug keys => RegistryEntry
     }
 
-    addEntry(key, registryItem) {
-        this.entries[key] = registryItem;
+    /**
+     * @param registryEntry RegistryEntry
+     */
+    addEntry(registryEntry) {
+        this.entries[registryEntry.key] = registryEntry;
     }
 
     getAll() {
         return this.entries;
+    }
+
+    getEntry(key) {
+        return (this.entries[key]) ? this.entries[key] : false;
     }
 
 }

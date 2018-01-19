@@ -1,5 +1,5 @@
 {
   "name": "pewjs",
   "version": "1.0.0",
-  "description": "ProgressiveEnhancementWonderfulJS"
+  "description": "PewJS (Progressive Enhancement Wonderful JS) - PewJS is an ES6 library offering a Progressive Enhancement solution for plain websites. Place it on any valid HTML (a Wordpress page for example), register your javascript components, and let it enhance your WebApp."
 }
