@@ -11,11 +11,11 @@ export class Registry {
     }
 
     getAll() {
-        console.log('Registry.getAll()', this.entries);
         return this.entries;
     }
 
     getEntry(key) {
         return (this.entries[key]) ? this.entries[key] : false;
     }
+
 }
