@@ -1,4 +1,5 @@
 export class RegistryEntry {
+    // force : ignore "data-no-pew" if true. Useful for manual enhance ; use data-no-pew and force = true to instanciate it manually only.
     /**
      *
      * @param key Key of the entry in the registry
@@ -7,17 +8,19 @@ export class RegistryEntry {
      * @param parentHTMLElement optional - dom element where the selector should be looked for (defaults to document.body)
      */
     constructor(key, classDef, domSelector, parentHTMLElement) {
-        console.log('REGISTRY ENTRY CREATED', key);
         this.key = key;
         this.classDef = classDef;
         this.domSelector = domSelector;
         this.parentHTMLElement = parentHTMLElement;
         this.HTMLCollection = null;
-        this.force = false;
     }
 
-    enhance() {
-        this.HTMLCollection = this.findDOMElements();
+    __debug() {
+        this.__DEBUG = true;
+    }
+
+    enhance(force) {
+        this.HTMLCollection = this.findDOMElements(force);
         this.HTMLCollection.forEach((HTMLElement) => {
             this.enhanceElement(HTMLElement);
         });
@@ -25,21 +28,26 @@ export class RegistryEntry {
     enhanceElement(HTMLElement) {
         return new this.classDef(HTMLElement);
     }
-    findDOMElements() {
+    findDOMElements(force) {
         if(!this.parentHTMLElement) {
             this.parentHTMLElement = document.body;
         }
         let elements = [];
+        let ignored = [];
         let res = this.parentHTMLElement.querySelectorAll(this.domSelector); // by tag, by #id, by .class, by data-pew=
-
         if(res.length) {
             for(let i = 0; i < res.length; i++) {
-                if(this.force || !res[i].hasAttribute('data-no-pew')) {
+                if(force || !res[i].hasAttribute('data-no-pew')) {
                     elements.push(res[i]);
+                } else {
+                    ignored.push(res[i]);
                 }
             }
         }
-
+        if(this.__DEBUG) {
+            let str = (ignored.length > 0) ? ', and '+ignored.length+' ignored@ due to [data-no-pew] : ' : '';
+            console.warn('[PewJS DEBUG] RegistryItem : "'+ this.key +'" matched '+res.length+' results in ParentNode', this.parentHTMLElement, 'with selector "'+ this.domSelector +'" :', elements, str, ignored) ;
+        }
         return elements;
     }
 }

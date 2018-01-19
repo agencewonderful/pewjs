@@ -2,12 +2,20 @@ import { Enhancer } from "./src/enhancer";
 import { Registry } from "./src/registry";
 
 export class Pew {
-    constructor(options) {
-        this.registry = new Registry();
-        this.enhancer = new Enhancer(options);
+    constructor(options, debug = false) {
+        this.registry = new Registry(debug);
+        this.enhancer = new Enhancer(options, debug);
+        this.__DEBUG = debug;
     }
+    __debug() {
+        this.__DEBUG = true;
+        this.enhancer.__debug();
+    }
+
     enhanceRegistry() {
-        console.log('auto enhancer');
+        if(this.__DEBUG) {
+            console.info('[PewJS] Automatic enhancement starting on the following registry : ', this.registry.getAll());
+        }
         this.enhancer.enhance(this.registry);
     }
     /**
@@ -15,7 +23,7 @@ export class Pew {
      * @param registryEntry RegistryEntry
      */
     addRegistryEntry(registryEntry) {
-        this.registry.addEntry(registryEntry);
+        this.registry.addEntry(registryEntry, this.__DEBUG);
     }
 
     getRegistryEntry(key) {
@@ -23,7 +31,6 @@ export class Pew {
     }
     enhanceRegistryEntry(key) {
         let registryEntry = this.getRegistryEntry(key);
-        registryEntry.force = true;
-        this.enhancer.enhanceEntry(registryEntry);
+        this.enhancer.enhanceEntry(registryEntry, true);
     }
 }

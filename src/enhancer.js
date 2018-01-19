@@ -1,14 +1,8 @@
 export class Enhancer {
-    constructor(options) {
-        if(options && options.debug) {
-            this.__DEBUG = options.debug;
-        }
+    __debug() {
+        this.__DEBUG = true;
     }
     enhance(registry) {
-        this.enhanceEntries(registry);
-    }
-
-    enhanceEntries(registry) {
         let entries = registry.getAll();
         let keys = Object.keys(entries);
         return keys.map((key) => {
@@ -16,7 +10,11 @@ export class Enhancer {
         });
     }
 
-    enhanceEntry(registryEntry) {
-        registryEntry.enhance();
+    enhanceEntry(registryEntry, force) {
+        if(this.__DEBUG) {
+            registryEntry.__debug();
+        }
+
+        registryEntry.enhance(force);
     }
 }
