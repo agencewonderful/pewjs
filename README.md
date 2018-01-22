@@ -81,20 +81,27 @@ That means that you can leave your HTML untouched, and let Pew enhance it by giv
     
             pew.enhanceRegistryEntry('accordion');
             
-6. Run Pew whenever you need (ideally at the end of your call flow)
+5. Run Pew whenever you need (ideally at the end of your call flow)
 
         pew.enhanceRegistry();
         
-7. In our example this is what is going to happen:
+6. In our example this is what is going to happen:
     - Pew will browse its registry.
     - It will find the myFrontEndComponentRegistryEntryKey registryEntry and work with it.
     - Based on this Entry selector, it will find the 3 DOM fragments targeted by the .test-component selector
     - For each of these 3 DOM fragments, it will create a new  `MyFrontEndComponent` with the current fragment in the constructor parameter.
     
-8. If we'd look in our browser console, we would see three logs (enable debug after pew instanciation Pew  `pew.debug()` ):
-    - [PewJS DEBUG] RegistryItem : "myFrontEndComponentRegistryEntryKey" matched 1 results in ParentNode `<body>` with selector "`.test-component`" : `Array [ div.test-component ]`
-    - [PewJS DEBUG] RegistryItem : "myCmpnt" matched 1 results in ParentNode `<body>` with selector "`.my-cmpnt`" : `Array [ div.my-cmpnt ]`
+7. If we'd look in our browser console, we would see three logs :
+    - This is MyFrontEndComponent instanciated with the HTML DOM node test-component-1
+    - This is MyFrontEndComponent instanciated with the HTML DOM node test-component-2
+    - This is MyFrontEndComponent instanciated with the HTML DOM node test-component-3        
         
+8. In addition, Pew provides an internal debugger that you can activate like so :  `pew.debug()`;
+   If you did that, you'd see some additional messages like the following:
+
+
+    [PewJS DEBUG] RegistryItem : "myFrontEndComponentRegistryEntryKey" matched 3 results in ParentNode `<body>` with selector "`.test-component`" : `Array [ div.test-component ], [ div.test-component ], [ div.test-component ]`
+
 #TL;DR :
 - Instanciate Pew.
 - Add registry entries that are a "Key / Class Definition / Selector (optional)" tryptic.
