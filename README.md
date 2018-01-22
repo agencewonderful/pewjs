@@ -68,7 +68,7 @@ That means that you can leave your HTML untouched, and let Pew enhance it by giv
     - The RegistryEntry second parameter is your javascript object definition (not instanciated yet).
     - The RegistryEntry third parameter is your html selector. It can be a class, an id or even a data attribute.
     
-            pew.addRegistryEntry(new RegistryEntry(MyFrontEndComponent, '.test-component', 'myFrontEndComponentRegistryEntryKey'));                    
+            pew.addRegistryEntry({classDef: MyFrontEndComponent, domSelector: '.test-component', key: 'myFrontEndComponentRegistryEntryKey'});                    
 
     You can also instanciate registered Pew entries by your own.
     * Get the registered entry where you need it, for a fully free manipulation (or override of your registered items)
@@ -81,21 +81,27 @@ That means that you can leave your HTML untouched, and let Pew enhance it by giv
     
             pew.enhanceRegistryEntry('accordion');
             
-6. Run Pew whenever you need (ideally at the end of your call flow)
+5. Run Pew whenever you need (ideally at the end of your call flow)
 
         pew.enhanceRegistry();
         
-7. In our example this is what is going to happen:
+6. In our example this is what is going to happen:
     - Pew will browse its registry.
     - It will find the myFrontEndComponentRegistryEntryKey registryEntry and work with it.
     - Based on this Entry selector, it will find the 3 DOM fragments targeted by the .test-component selector
     - For each of these 3 DOM fragments, it will create a new  `MyFrontEndComponent` with the current fragment in the constructor parameter.
     
-8. If we'd look in our browser console, we would see three logs:
+7. If we'd look in our browser console, we would see three logs :
     - This is MyFrontEndComponent instanciated with the HTML DOM node test-component-1
     - This is MyFrontEndComponent instanciated with the HTML DOM node test-component-2
     - This is MyFrontEndComponent instanciated with the HTML DOM node test-component-3        
         
+8. In addition, Pew provides an internal debugger that you can activate like so :  `pew.debug()`;
+   If you did that, you'd see some additional messages like the following:
+
+
+    [PewJS DEBUG] RegistryItem : "myFrontEndComponentRegistryEntryKey" matched 3 results in ParentNode `<body>` with selector "`.test-component`" : `Array [ div.test-component ], [ div.test-component ], [ div.test-component ]`
+
 #TL;DR :
 - Instanciate Pew.
 - Add registry entries that are a "Key / Class Definition / Selector (optional)" tryptic.

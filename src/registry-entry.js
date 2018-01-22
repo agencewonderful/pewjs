@@ -15,7 +15,7 @@ export class RegistryEntry {
         this.HTMLCollection = null;
     }
 
-    __debug() {
+    debug() {
         this.__DEBUG = true;
     }
 
