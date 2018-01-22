@@ -25,8 +25,8 @@ export class Pew {
      * Add an entry to enhance to the registry
      * @param registryEntry RegistryEntry
      */
-    addRegistryEntry({ key, classDef, domSelector }) {
-        let entry = new RegistryEntry(key, classDef, domSelector);
+    addRegistryEntry({ key, classDef, domSelector, parentHTMLElement }) {
+        let entry = new RegistryEntry(key, classDef, domSelector, parentHTMLElement);
         this.registry.addEntry(entry, this.__DEBUG);
         return this;
     }
