@@ -1,6 +1,5 @@
 export class Registry {
-    constructor(debug) {
-        this.__DEBUG = debug;
+    constructor() {
         this.entries = {}; // collection of Slug keys => RegistryEntry
     }
 

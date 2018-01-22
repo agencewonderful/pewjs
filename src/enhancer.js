@@ -12,7 +12,7 @@ export class Enhancer {
 
     enhanceEntry(registryEntry, force) {
         if(this.__DEBUG) {
-            registryEntry.__debug();
+            registryEntry.debug();
         }
 
         registryEntry.enhance(force);
