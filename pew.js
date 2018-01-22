@@ -3,10 +3,9 @@ import { Registry } from "./src/registry";
 import { RegistryEntry } from "./src/registry-entry";
 
 export class Pew {
-    constructor(options, debug = false) {
+    constructor(options) {
         this.registry = new Registry();
         this.enhancer = new Enhancer();
-        this.__DEBUG = debug;
     }
     __debug() {
         this.__DEBUG = true;
@@ -38,7 +37,7 @@ export class Pew {
      * @returns {Pew}
      */
     enhanceRegistryEntry(key) {
-        let registryEntry = this.registry.getEntry(key);
+        let registryEntry = this.getRegistryEntry(key);
         if(registryEntry) {
             this.enhancer.enhanceEntry(registryEntry, true);
         } else {
@@ -47,5 +46,9 @@ export class Pew {
             }
         }
         return this;
+    }
+
+    getRegistryEntry(key) {
+        return this.registry.getEntry(key);
     }
 }
