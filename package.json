@@ -1,5 +1,5 @@
 {
   "name": "pewjs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Pew.js is a tiny progressive enhancement library whose main concern is to enhance HTML DOM fragments with Javascript objects while respecting the separation of concerns principles. That means that you can leave your HTML untouched, and let Pew enhance it by giving the wanted DOM fragments to your JavaScript classes so they can work on them separately. "
 }
